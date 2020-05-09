@@ -1,0 +1,74 @@
+<form>
+    <div class="contenedor">
+        <header>
+            <h1>Administración de registros</h1>
+        </header>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese nombres" [(ngModel)]="clientCrear.name">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Apellidos</label>
+            <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Ingrese apellidos" [(ngModel)]="clientCrear.lastName">
+        </div>
+
+
+        <div class="form-group">
+            <button type="submit" class="btn" class="btn btn-danger pull-right" style="background-color: blue;" (click)="crearPersona()">Agregar</button>
+        </div>
+    
+        <div class="error_box" id="error_box">
+            <p>Se ha producido un error.</p>
+        </div>
+        <div>
+
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="accion">
+                    <th *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? toggle() : null" [checked]="selection.hasValue() && seleccionarTodo()" [indeterminate]="selection.hasValue() && !seleccionarTodo()" [aria-label]="checkboxLabel()">
+                        </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Id">
+                    <th class="mat-header" *matHeaderCellDef> Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Name">
+                    <th class="mat-header" *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="LastName">
+                    <th class="mat-header" *matHeaderCellDef> LastName </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Processed">
+                    <th class="mat-header" *matHeaderCellDef> Processed </th>
+                    <td mat-cell *matCellDef="let element"> {{element.processed}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <div class="card-body" style="text-align: center;">
+                <button mat-raised-button type="submit" class="btn btn-danger pull-right" style="background-color: blue;" (click)="procesar()">Procesar</button>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</form>
